@@ -1,0 +1,3 @@
+[submodule "cwl_scripts"]
+	path = cwl_scripts
+	url = git@github.com:echelonbioanalytics/cwl_scripts.git

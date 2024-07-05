@@ -1,0 +1,1 @@
+# Folder contains trash and will be removed eventually
