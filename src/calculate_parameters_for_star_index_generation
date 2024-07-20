@@ -2,6 +2,7 @@
 
 from argparse import RawTextHelpFormatter
 import argparse
+import math
 
 
 def parseCommandLineArguments():
