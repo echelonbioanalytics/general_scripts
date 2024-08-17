@@ -7,7 +7,7 @@ import os
 
 
 def parseCommandLineArguments():
-    parser = argparse.ArgumentParser( prog = "fasterq_dump", description = "Wrapper script to call fasterq_dump and rename file based on paired ended or single ended", formatter_class = RawTextHelpFormatter )
+    parser = argparse.ArgumentParser( prog = "fasterq_dump_wrap", description = "Wrapper script to call fasterq_dump and rename file based on paired ended or single ended", formatter_class = RawTextHelpFormatter )
     
     required_named = parser.add_argument_group( 'Required arguments' )
     optional_named = parser.add_argument_group( 'Optional arguments' )
