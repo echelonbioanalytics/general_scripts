@@ -1,0 +1,42 @@
+#!/usr/bin/env python
+
+from argparse import RawTextHelpFormatter
+import argparse
+import math
+import os
+
+
+def parseCommandLineArguments():
+    parser = argparse.ArgumentParser( prog = "fasterq_dump", description = "Wrapper script to call fasterq_dump and rename file based on paired ended or single ended", formatter_class = RawTextHelpFormatter )
+    
+    required_named = parser.add_argument_group( 'Required arguments' )
+    optional_named = parser.add_argument_group( 'Optional arguments' )
+
+    # Mandatory arguments
+    required_named.add_argument( "--sra_file", help = "Enter the sra file", required = True )
+    required_named.add_argument( "--threads", help = "Enter the number of threads", type = int, default=1 )
+    required_named.add_argument( "--produce_fasta", help = "Set this if you want to produce fasta instead of fastq", action = "store_true" )
+    
+    return parser.parse_args()
+
+def main():
+    options = parseCommandLineArguments()
+
+    cmd = f"fasterq-dump --threads {options.threads} "
+    if options.produce_fasta:
+        cmd += "--fasta "
+    cmd += "--split-files --out_dir . --seq-defline '@$sn[_$rn]/$ri' {options.sra_file}"
+    os.system(cmd)
+
+    if options.produce_fasta:
+        if os.path.exists(f"{options.sra_file}.fasta"):
+            os.rename(f"{options.sra_file}.fasta", f"{options.sra_file}_1.fasta")
+    else:
+        if os.path.exists(f"{options.sra_file}.fastq"):
+            os.rename(f"{options.sra_file}.fastq", f"{options.sra_file}_1.fastq")
+        
+
+
+
+if __name__ == "__main__":
+    main()
